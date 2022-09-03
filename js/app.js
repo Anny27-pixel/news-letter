@@ -11,11 +11,11 @@ const displayAllCategory = categories => {
     for (const category of categories) {
         const categoryDiv = document.createElement('div');
         categoryDiv.innerHTML = `
-        <div class="px-2">
-         <Button onclick = "loadSpecificNews('${category.category_id}')" class =" btn btn-light ">${category.category_name}</button>
+        <div class=" px-2">
+         <Button onclick = "loadSpecificNews('${category.category_id}','${category.category_name}')" class =" btn btn-light ">${category.category_name}</button>
         </div>
         `;
-
+        onclick = "loadSpecificNews('${category.category_name}')"
         categoryContainer.appendChild(categoryDiv);
         // console.log(category.category_id);
 
@@ -26,7 +26,7 @@ const displayAllCategory = categories => {
 }
 
 
-const loadSpecificNews = async category_id => {
+const loadSpecificNews = async (category_id, category_name) => {
     // start load
     toggleSpinner(true);
     const url = ` https://openapi.programming-hero.com/api/news/category/${category_id}`;
@@ -38,13 +38,14 @@ const loadSpecificNews = async category_id => {
 
 
 
-const displaySpecificNews = (news) => {
+const displaySpecificNews = (news, category_name) => {
     const newsContainer = document.getElementById('news-container');
 
     // No news availabe 
     const availableNews = document.getElementById('availabe-news');
     availableNews.innerHTML = news.length;
-
+    const newsCategory = document.getElementById('news-category');
+    newsCategory.innerText = category_name;
     newsContainer.innerText = '';
 
     news.sort((a, b) => b.total_view - a.total_view);
@@ -55,8 +56,8 @@ const displaySpecificNews = (news) => {
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('py-8');
         newsDiv.innerHTML = `
-        <div  class="card mb-3 shadow" style="max-width: 1200px;">
-        <div class="row g-0">
+        <div  class="  card mb-3 shadow" style="max-width: 1200px;">
+        <div class="row g-0 small-container">
             <div class="col-md-4">
                 <img src="${info.thumbnail_url}" class="img-fluid rounded-start" alt="...">
             </div>
@@ -68,17 +69,18 @@ const displaySpecificNews = (news) => {
                   <div class= "d-flex mt-5">
                   <img src="${info.author.img}" class="img-fluid rounded-circle" alt="..." style="height: 5% ;width: 5% ;">
                   <div>
-                  <p class="card-text mx-3">${info.author.name}</p>
+                  <p class="card-text mx-3">${info.author.name ? info.author.name : 'No availabe data'}</p>
                   </div>
                   <div class= "d-flex mx-5">
                   <i style="height: 5% ;width: 2% ;" class="fa-regular fa-eye mt-1"></i>
-                  <p class="card-text mx-4">${info.total_view}</p>
+                  <p class="card-text mx-4">${info.total_view ? info.total_view : 'No availabe data'}</p>
                   </div>
                  
                   </div>
-                  <Button onclick = "loadSeeMore('${info._id}')" style="margin-left: 600px;"  class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetail"><i
-                 class="fa-solid fa-arrow-right text-end"></i></button>
+               
                 </div>
+                <Button id="icon-btn" onclick = "loadSeeMore('${info._id}')" style="margin-left: 400px;"  class=" btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#newsDetail"><i
+                class="fa-solid fa-arrow-right text-end"></i></button>
             </div>
         </div>
     </div>
