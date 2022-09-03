@@ -21,7 +21,7 @@ const displayAllCategory = categories => {
     }
 }
 
-const loadSpecificNews = async (category_id) => {
+const loadSpecificNews = async category_id => {
     const url = ` https://openapi.programming-hero.com/api/news/category/${category_id}`;
     // console.log(url);
     const res = await fetch(url);
@@ -35,6 +35,7 @@ const displaySpecificNews = news => {
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerText = '';
     for (const info of news) {
+        // console.log(info);
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('py-8');
         newsDiv.innerHTML = `
@@ -59,7 +60,7 @@ const displaySpecificNews = news => {
                   </div>
                  
                   </div>
-                  <Button id="btn-seeMore" style="margin-left: 600px;" onclick="loadSpecificNews()" class=" btn btn-primary  "><i
+                  <Button onclick = "loadSeeMore('${info._id}')" style="margin-left: 600px;"  class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetail"><i
                  class="fa-solid fa-arrow-right text-end"></i></button>
                 </div>
             </div>
@@ -72,13 +73,35 @@ const displaySpecificNews = news => {
     }
 
 
+}
+const loadSeeMore = async _id => {
+    const url = `https://openapi.programming-hero.com/api/news/${_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displaySeeMore(data.data);
+}
+
+const displaySeeMore = detailInfo => {
+    console.log(detailInfo);
+    const modalTitle = document.getElementById('newsDetailLabel');
+    modalTitle.innerText = detailInfo[0].title;
+    const infoDetails = document.getElementById('info-detail');
+    infoDetails.innerHTML = `
+    <p>Author: ${detailInfo[0].author.name ? detailInfo[0].author.name : 'No data availabe'}    </p>
+
+    <p>View : ${detailInfo[0].total_view ? detailInfo[0].total_view : 'No data availabe'}    </p>
+
+
+    <p> Rating ( Number :${detailInfo[0].rating.number ? detailInfo[0].rating.number : 'No data availabe'}, badge :${detailInfo[0].rating.badge ? detailInfo[0].rating.badge : 'No data availabe'})</p>
+
+    <p>others Information ( iTtodays pick: ${detailInfo[0].others_info.is_todays_pick ? detailInfo[0].others_info.is_todays_pick : 'No data availabe'} , isTrending : ${detailInfo[0].others_info.is_trending ? detailInfo[0].others_info.is_trending : 'No data availabe'} )    </p>
+    
+    `;
 
 }
 
 
-
 loadSpecificNews();
-
 
 
 
