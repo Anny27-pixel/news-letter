@@ -47,6 +47,9 @@ const displaySpecificNews = (news) => {
 
     newsContainer.innerText = '';
 
+    news.sort((a, b) => b.total_view - a.total_view);
+
+
     for (const info of news) {
         // console.log(info);
         const newsDiv = document.createElement('div');
