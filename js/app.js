@@ -38,10 +38,15 @@ const loadSpecificNews = async category_id => {
 
 
 
-const displaySpecificNews = news => {
+const displaySpecificNews = (news) => {
     const newsContainer = document.getElementById('news-container');
+
+    // No news availabe 
+    const availableNews = document.getElementById('availabe-news');
+    availableNews.innerHTML = news.length;
+
     newsContainer.innerText = '';
-    // No news availabe add korte hbe
+
     for (const info of news) {
         // console.log(info);
         const newsDiv = document.createElement('div');
