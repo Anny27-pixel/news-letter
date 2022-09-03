@@ -18,7 +18,7 @@ const displayAllCategory = categories => {
         const categoryDiv = document.createElement('div');
         categoryDiv.innerHTML = `
         <div class=" px-2">
-         <Button onclick = "loadSpecificNews('${category.category_id}','${category.category_name}')" class =" btn btn-light ">${category.category_name}</button>
+         <Button onclick = "loadSpecificNews('${category.category_id}')" class =" btn btn-light ">${category.category_name}</button>
         </div>
         `;
 
@@ -45,14 +45,12 @@ const loadSpecificNews = async (category_id) => {
 
 
 
-const displaySpecificNews = (news, category_name) => {
+const displaySpecificNews = (news) => {
     const newsContainer = document.getElementById('news-container');
 
     // No news availabe 
     const availableNews = document.getElementById('availabe-news');
     availableNews.innerHTML = news.length;
-    const newsCategory = document.getElementById('news-category');
-    newsCategory.innerText = category_name;
     newsContainer.innerText = '';
 
     news.sort((a, b) => b.total_view - a.total_view);
