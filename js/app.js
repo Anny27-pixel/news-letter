@@ -18,28 +18,36 @@ const displayAllCategory = categories => {
 
         categoryContainer.appendChild(categoryDiv);
         // console.log(category.category_id);
+
+
     }
+
+
 }
 
+
 const loadSpecificNews = async category_id => {
+    // start load
+    toggleSpinner(true);
     const url = ` https://openapi.programming-hero.com/api/news/category/${category_id}`;
     // console.log(url);
     const res = await fetch(url);
     const data = await res.json();
     displaySpecificNews(data.data);
-
 }
 
-const displaySpecificNews = news => {
 
+
+const displaySpecificNews = news => {
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerText = '';
+    // No news availabe add korte hbe
     for (const info of news) {
         // console.log(info);
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('py-8');
         newsDiv.innerHTML = `
-        <div  class="card mb-3" style="max-width: 1200px;">
+        <div  class="card mb-3 shadow" style="max-width: 1200px;">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="${info.thumbnail_url}" class="img-fluid rounded-start" alt="...">
@@ -72,8 +80,21 @@ const displaySpecificNews = news => {
 
     }
 
-
+    // start stop
+    toggleSpinner(false);
 }
+
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none');
+    }
+    else {
+        loaderSection.classList.add('d-none');
+    }
+}
+
+
 const loadSeeMore = async _id => {
     const url = `https://openapi.programming-hero.com/api/news/${_id}`;
     const res = await fetch(url);

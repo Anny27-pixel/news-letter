@@ -17,7 +17,7 @@
 <body>
     <!-- Header section start  -->
     <header>
-        <nav class=" container navbar navbar-expand-lg bg-light">
+        <nav class=" container navbar navbar-expand-lg bg-light shadow mt-4">
             <div class="container-fluid">
                 <a class="navbar-brand bg-primary px-3 rounded text-white" href="#">News</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -44,8 +44,8 @@
     <!-- header section end  -->
 
     <!-- all news section  -->
-    <section class="container bg-light">
-        <div id="category-container" class="d-flex ">
+    <section class="container bg-light ">
+        <div id="category-container" class="d-flex shadow py-2">
             <div class="px-2"><button class=" btn btn-light ">Home</button>
             </div>
 
@@ -84,7 +84,15 @@
         </div>
     </section>
 
+    <!-- spinner section  -->
 
+    <section id="loader" class="d-none">
+        <div style="height: 300px ;" class="d-flex justify-content-center align-items-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </section>
 
 
     <!-- script  -->
