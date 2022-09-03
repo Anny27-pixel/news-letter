@@ -1,8 +1,14 @@
 const loadAllCategory = async () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayAllCategory(data.data.news_category);
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        displayAllCategory(data.data.news_category);
+    }
+    catch (error) {
+        return 'error';
+    }
 }
 
 const displayAllCategory = categories => {
@@ -15,25 +21,26 @@ const displayAllCategory = categories => {
          <Button onclick = "loadSpecificNews('${category.category_id}','${category.category_name}')" class =" btn btn-light ">${category.category_name}</button>
         </div>
         `;
-        onclick = "loadSpecificNews('${category.category_name}')"
+
         categoryContainer.appendChild(categoryDiv);
         // console.log(category.category_id);
-
-
     }
-
-
 }
 
 
-const loadSpecificNews = async (category_id, category_name) => {
+const loadSpecificNews = async (category_id) => {
     // start load
     toggleSpinner(true);
     const url = ` https://openapi.programming-hero.com/api/news/category/${category_id}`;
     // console.log(url);
-    const res = await fetch(url);
-    const data = await res.json();
-    displaySpecificNews(data.data);
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displaySpecificNews(data.data);
+    }
+    catch (error) {
+        return 'error';
+    }
 }
 
 
@@ -107,9 +114,16 @@ const toggleSpinner = isLoading => {
 
 const loadSeeMore = async _id => {
     const url = `https://openapi.programming-hero.com/api/news/${_id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displaySeeMore(data.data);
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displaySeeMore(data.data);
+    }
+    catch (error) {
+        const res = await fetch(url);
+        const data = await res.json();
+        displaySeeMore(data.data);
+    }
 }
 
 const displaySeeMore = detailInfo => {
