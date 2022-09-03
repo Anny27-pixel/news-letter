@@ -63,12 +63,12 @@ const displaySpecificNews = (news, category_name) => {
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('py-8');
         newsDiv.innerHTML = `
-        <div  class="  card mb-3 shadow" style="max-width: 1200px;">
+        <div  class="  card mb-3 shadow " style="max-width: 1200px;">
         <div class="row g-0 small-container">
             <div class="col-md-4">
                 <img src="${info.thumbnail_url}" class="img-fluid rounded-start" alt="...">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 mb-5">
                 <div class="card-body">
                     <h5 class="card-title">${info.title}</h5>
                     <p class="card-text">${info.details.slice(0, 400)}...</p>
